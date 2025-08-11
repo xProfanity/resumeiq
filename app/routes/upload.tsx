@@ -58,14 +58,14 @@ export default function Upload() {
     const data = {
       id,
       resumePath: uploadedFile.path,
-      imagePath: uploadedImage.parent_id,
+      imagePath: uploadedImage.path,
       companyName,
       jobTitle,
       jobDescription,
       feedback: "",
     };
 
-    await kv.set(`resume: ${id}`, JSON.stringify(data));
+    await kv.set(`resume:${id}`, JSON.stringify(data));
 
     setStatusText("Analyzing...");
 
@@ -86,7 +86,7 @@ export default function Upload() {
     await kv.set(`resume:${id}`, JSON.stringify(data));
     setStatusText("Analysis complete, redirecting");
 
-    console.log(data);
+    navigate(`/resume/${id}`);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
